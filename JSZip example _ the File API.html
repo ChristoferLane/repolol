@@ -11,12 +11,24 @@
 <body>
 <h1><a href="https://heltschl.org/_js/jszip/">JSZip</a> example : reading a local file with the File API</h1>
 
+<button onclick="play()">play</button>
+<button onclick="pause()">pause</button>
 <input type="file" id="file" name="file" multiple="">
 <h2>Content :</h2>
 <div id="result"></div>
+
+
+
 <script type="text/javascript" src="./JSZip example _ the File API_files/jquery-1.8.3.min.js.download"></script>
 <script type="text/javascript" src="./JSZip example _ the File API_files/jszip.js.download"></script>
 <script type="text/javascript">
+
+var placen = "";
+var synth = window.speechSynthesis;
+var msg = new SpeechSynthesisUtterance();
+var stored = [];
+var yus = "";
+
   (function () {
     if (!window.FileReader || !window.ArrayBuffer) {
       alert("You will need a recent browser to use this demo :(");
@@ -66,16 +78,27 @@
 
 if(zipEntry.name.includes(".html")){
 
+
+
+
+
+
+
+
+
+
                 $ul.append( "<li>" + zipEntry.asText() + "</li>" );
 
 };
 
+
+
 setTimeout(function(){ 
-var msg = new SpeechSynthesisUtterance();
-msg.text = $('p').text();
-console.log($('p').text());;
-window.speechSynthesis.speak(msg);
-}, 30000);
+
+yus = $('p').text();
+
+
+}, 10000);
 
                 // the content is here : zipEntry.name
 
@@ -97,6 +120,42 @@ window.speechSynthesis.speak(msg);
     });
   })();
 
+
+function play(){
+
+
+msg.text = yus;
+synth.speak(msg);
+
+//document.getElementById('tot').innerHTML = $('p').text();
+
+
+msg.addEventListener('boundary', function(event) {
+  
+var char = event.utterance.text.charAt(event.charIndex);
+placen = event.charIndex;
+
+
+});
+
+
+
+
+
+
+};
+
+
+
+
+
+function pause(){
+ var d = new Date();
+  var n = d.toString();
+//synth.pause();
+document.cookie = n + placen;
+console.log(placen);
+};
 
 
 
